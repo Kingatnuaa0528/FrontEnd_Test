@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>MultiUser</title>
+        <meta charset="utf-8">
+        <script src="http://cdn.static.runoob.com/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script>
+            //将表格转化为json字符串
+            $.fn.serializeForm = function()  
+            {  
+               var o = {};  
+               var a = this.serializeArray();  
+               $.each(a, function() {  
+                   if (o[this.name]) {  
+                       if (!o[this.name].push) {  
+                           o[this.name] = [o[this.name]];  
+                       }  
+                       o[this.name].push(this.value || '');  
+                   } else {  
+                       o[this.name] = this.value || '';  
+                   }  
+               });  
+               return o;  
+            };
+
+            function query_multi_ajax()
+            {
+                //alert("aaaaaa");
+                var multiQForm = document.getElementById("multiQForm");
+                multiQForm.action = ""
+            	var json_multiQForm = $('#multiQForm').serializeForm();
+                alert(JSON.stringify(json_multiQForm));
+            }
+
+        </script>
+    </head>
+    <body>
+        <form id="multiQForm">
+            startTime:
+            <input type="date" name="startTime">
+            endTime:
+            <input type="date" name="endTime" >
+            <!--input type="hidden" id="endTime"-->
+            <input type="radio" name="type" value="1" />QueryAllDuration
+            <input type="radio" name="type" value="2" />QueryAllComeTime
+            <input type="radio" name="type" value="3" />QueryAllLeaveTime
+            <input type="submit" value="查询" onclick="query_multi_ajax();">
+        </form>
+    </body>
+</html>
